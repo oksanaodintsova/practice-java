@@ -1,7 +1,7 @@
 package algorithms.time;
 
-        import java.math.BigInteger;
-        import java.util.Arrays;
+import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.stream.IntStream;
 
 /**
@@ -31,11 +31,12 @@ import java.util.stream.IntStream;
  */
 public class MissingElement {
     public int solution(int[] A) {
-        // write your code in Java SE 8
-        //TODO:: still failing with timeotu
         final BigInteger length = new BigInteger(String.valueOf(A.length));
         final BigInteger actualSum = (length.multiply(length.add(BigInteger.ONE))).divide(new BigInteger("2"));
-        return Arrays.stream(A).mapToObj(i -> new BigInteger(String.valueOf(i))).reduce(BigInteger::add)
-                .map(givenSum -> new BigInteger(String.valueOf(A.length + 1)).subtract(givenSum.subtract(actualSum)).intValue()).orElse(1);
+        long givenSum = 0;
+        for (int i : A) {
+            givenSum += A[i];
+        }
+        return (int) ((long) A.length + 1 - (givenSum - actualSum.longValue()));
     }
 }
